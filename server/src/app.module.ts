@@ -1,9 +1,15 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ConfigModule } from '@nestjs/config';
+
+import { TrackModule } from './track/track.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { getMongoDbUrl, mongodbOptions } from './configs/mongodb';
 
 @Module({
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    TrackModule,
+    ConfigModule.forRoot(),
+    MongooseModule.forRoot(getMongoDbUrl(process), mongodbOptions),
+  ],
 })
 export class AppModule {}
