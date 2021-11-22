@@ -7,9 +7,9 @@ import { getMongoDbUrl, mongodbOptions } from './configs/mongodb';
 
 @Module({
   imports: [
-    TrackModule,
     ConfigModule.forRoot(),
     MongooseModule.forRoot(getMongoDbUrl(process), mongodbOptions),
+    TrackModule,
   ],
 })
 export class AppModule {}
