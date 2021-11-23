@@ -13,9 +13,6 @@ export class Track {
   artist: string;
 
   @Prop()
-  track: string;
-
-  @Prop()
   listens: number;
 
   @Prop()
@@ -23,6 +20,9 @@ export class Track {
 
   @Prop()
   audio: string;
+
+  @Prop()
+  text: string;
 
   @Prop({
     type: [{ type: Types.ObjectId, ref: 'Comment' }],
