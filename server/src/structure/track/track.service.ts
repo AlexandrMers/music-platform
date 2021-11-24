@@ -17,22 +17,18 @@ export class TrackService {
   ) {}
 
   async create(dto: CreateTrackDto): Promise<Track> {
-    const track = await this.trackModel.create({ ...dto, listens: 0 });
-    return track;
+    return this.trackModel.create({ ...dto, listens: 0 });
   }
 
   async getAll(): Promise<Track[]> {
-    const allTracks = await this.trackModel.find();
-    return allTracks;
+    return this.trackModel.find();
   }
 
   async getOne(id: Schema.Types.ObjectId): Promise<Track> {
-    const track = await this.trackModel.findById(id);
-    return track;
+    return this.trackModel.findById(id);
   }
 
   async delete(id: Schema.Types.ObjectId): Promise<Track> {
-    const deleteTrack = await this.trackModel.findByIdAndDelete(id);
-    return deleteTrack;
+    return this.trackModel.findByIdAndDelete(id);
   }
 }
