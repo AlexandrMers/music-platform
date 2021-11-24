@@ -19,7 +19,7 @@ export class FileService {
     try {
       const fileExtension = extractExtensionFromFile(file);
       const fileName = generateFileName(fileExtension);
-      const filePath = path.resolve(__dirname, '..', '..', 'static');
+      const filePath = path.resolve(__dirname, '..', '..', 'static', type);
 
       if (!fs.existsSync(filePath)) {
         fs.mkdirSync(filePath, { recursive: true });
