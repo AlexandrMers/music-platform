@@ -31,9 +31,16 @@ export class TrackController {
       },
     ]),
   )
-  create(@UploadedFiles() files, @Body() dto: CreateTrackDto) {
+  create(
+    @UploadedFiles()
+    files: {
+      picture: Express.Multer.File[];
+      audio: Express.Multer.File[];
+    },
+    @Body() dto: CreateTrackDto,
+  ) {
     const { picture, audio } = files;
-    return this.trackService.create(dto, picture, audio);
+    return this.trackService.create(dto, picture[0], audio[0]);
   }
 
   @Get()

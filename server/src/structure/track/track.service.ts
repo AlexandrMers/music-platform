@@ -9,16 +9,29 @@ import { Comment, CommentDocument } from './schemas/comment.schema';
 // Data Transfers Objects
 import { CreateTrackDto } from './dto/create-track.dto';
 import { CreateCommentDto } from './dto/create-comment.dto';
+import { FileService, FileType } from '../file/file.service';
 
 @Injectable()
 export class TrackService {
   constructor(
     @InjectModel(Track.name) private trackModel: Model<TrackDocument>,
     @InjectModel(Comment.name) private commentModel: Model<CommentDocument>,
+    private fileService: FileService,
   ) {}
 
-  async create(dto: CreateTrackDto, picture, audio): Promise<Track> {
-    return this.trackModel.create({ ...dto, listens: 0 });
+  async create(
+    dto: CreateTrackDto,
+    picture: Express.Multer.File,
+    audio: Express.Multer.File,
+  ): Promise<Track> {
+    const audioPath = this.fileService.createFile(FileType.AUDIO, audio);
+    const picturePath = this.fileService.createFile(FileType.IMAGE, picture);
+    return this.trackModel.create({
+      ...dto,
+      listens: 0,
+      picture: picturePath,
+      audio: audioPath,
+    });
   }
 
   async getAll(): Promise<Track[]> {
