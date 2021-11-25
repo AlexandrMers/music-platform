@@ -9,6 +9,8 @@ import { Comment, CommentDocument } from './schemas/comment.schema';
 // Data Transfers Objects
 import { CreateTrackDto } from './dto/create-track.dto';
 import { CreateCommentDto } from './dto/create-comment.dto';
+
+// Services
 import { FileService, FileType } from '../file/file.service';
 
 @Injectable()
@@ -34,8 +36,11 @@ export class TrackService {
     });
   }
 
-  async getAll(): Promise<Track[]> {
-    return this.trackModel.find();
+  async getAll(
+    count: number | string = 10,
+    offset: number | string = 0,
+  ): Promise<Track[]> {
+    return this.trackModel.find().skip(Number(offset)).limit(Number(count));
   }
 
   async getOne(id: Schema.Types.ObjectId): Promise<Track> {
@@ -58,5 +63,13 @@ export class TrackService {
     const track = await this.trackModel.findById(id);
     track.listens += 1;
     track.save();
+  }
+
+  async search(query: string): Promise<Track[]> {
+    const tracks = await this.trackModel.find({
+      name: { $regex: new RegExp(query, 'i') },
+    });
+
+    return tracks;
   }
 }

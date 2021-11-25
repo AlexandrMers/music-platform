@@ -5,14 +5,17 @@ import {
   Get,
   Param,
   Post,
+  Query,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
-import { TrackService } from './track.service';
-import { CreateTrackDto } from './dto/create-track.dto';
 import { ObjectId, Schema } from 'mongoose';
-import { CreateCommentDto } from './dto/create-comment.dto';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
+
+import { CreateTrackDto } from './dto/create-track.dto';
+import { CreateCommentDto } from './dto/create-comment.dto';
+
+import { TrackService } from './track.service';
 
 @Controller('/tracks')
 export class TrackController {
@@ -44,8 +47,13 @@ export class TrackController {
   }
 
   @Get()
-  getAll() {
-    return this.trackService.getAll();
+  getAll(@Query('count') count: string, @Query('offset') offset: string) {
+    return this.trackService.getAll(count, offset);
+  }
+
+  @Get('/search')
+  search(@Query('query') query: string) {
+    return this.trackService.search(query);
   }
 
   @Get(':id')
