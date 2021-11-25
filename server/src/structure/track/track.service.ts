@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Schema } from 'mongoose';
+import { Model, ObjectId, Schema } from 'mongoose';
 
 // Schemas
 import { Track, TrackDocument } from './schemas/track.schema';
@@ -52,5 +52,11 @@ export class TrackService {
     track.comments.push(comment._id);
     await track.save();
     return comment;
+  }
+
+  async listen(id: ObjectId) {
+    const track = await this.trackModel.findById(id);
+    track.listens += 1;
+    track.save();
   }
 }
