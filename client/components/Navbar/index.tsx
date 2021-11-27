@@ -52,7 +52,7 @@ export interface NavbarItemInterface {
   href: string;
 }
 
-export default function Navbar({
+function Navbar({
   items,
   headerTitle,
 }: {
@@ -124,3 +124,5 @@ export default function Navbar({
     </Box>
   );
 }
+
+export default Navbar;
