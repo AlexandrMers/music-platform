@@ -1,0 +1,22 @@
+.TrackItem {
+  margin: 20px;
+  padding: 10px;
+
+  &__Picture {
+    margin-left: 15px;
+    width: 70px;
+    height: 70px;
+  }
+
+  &__Name {
+    max-width: 300px;
+  }
+
+  &__Information {
+    margin-left: 15px;
+  }
+
+  &__DeleteButton {
+    margin-left: auto;
+  }
+}
