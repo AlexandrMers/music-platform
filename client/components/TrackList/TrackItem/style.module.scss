@@ -9,7 +9,15 @@
   }
 
   &__Name {
+    cursor: pointer;
     max-width: 300px;
+    text-decoration: none;
+    transition: all ease .2s;
+
+    &:hover {
+      text-decoration: underline;
+      transition: all ease .2s;
+    }
   }
 
   &__Information {

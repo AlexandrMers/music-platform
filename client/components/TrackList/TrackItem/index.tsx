@@ -1,16 +1,30 @@
 import React, { FC } from "react";
-import { ITrack } from "types/Track";
+import { useRouter } from "next/router";
+
 import { Card, Grid, IconButton, Typography } from "@material-ui/core";
 import { Delete, Pause, PlayArrow } from "@mui/icons-material";
+
+import { ITrack } from "types/Track";
 
 import styles from "./style.module.scss";
 
 interface TrackItemPropsInterface {
   active?: boolean;
   track: ITrack;
+  onClickTitle: (trackId: string) => void;
 }
 
-const TrackItem: FC<TrackItemPropsInterface> = ({ track, active = false }) => {
+const TrackItem: FC<TrackItemPropsInterface> = ({
+  track,
+  active = false,
+  onClickTitle,
+}) => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    onClickTitle(track.id);
+  };
+
   return (
     <Card className={styles.TrackItem}>
       <Grid container alignItems="center">
@@ -23,9 +37,15 @@ const TrackItem: FC<TrackItemPropsInterface> = ({ track, active = false }) => {
           alt={track.name}
         />
         <Grid className={styles.TrackItem__Information} direction="column">
-          <Typography variant="h6" className={styles.TrackItem__Name} noWrap>
+          <Typography
+            noWrap
+            className={styles.TrackItem__Name}
+            onClick={handleClick}
+            variant="h6"
+          >
             {track.name}
           </Typography>
+
           <Typography
             variant="subtitle2"
             gutterBottom

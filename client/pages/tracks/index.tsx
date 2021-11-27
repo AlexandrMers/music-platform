@@ -24,6 +24,10 @@ const Tracks = () => {
     router.push(ROUTE_TYPES.TRACKS_CREATE);
   };
 
+  const handleClickTrack = (trackId: string) => {
+    router.push(`${ROUTE_TYPES.TRACKS}/${trackId}`);
+  };
+
   return (
     <WithNavbarContainer>
       <Grid container justifyContent="center">
@@ -35,7 +39,7 @@ const Tracks = () => {
             </Grid>
           </Box>
 
-          <TrackList tracks={tracks} />
+          <TrackList tracks={tracks} onClickTrack={handleClickTrack} />
         </Card>
       </Grid>
     </WithNavbarContainer>
