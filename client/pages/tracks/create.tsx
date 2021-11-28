@@ -1,4 +1,4 @@
-import React, { FC, memo } from "react";
+import React, { FC } from "react";
 
 import WithNavbarContainer from "containers/WithNavbarContainer";
 
@@ -12,4 +12,4 @@ const CreateTrack: FC<CreateTrackPropsInterface> = (props) => {
   );
 };
 
-export default memo(CreateTrack);
+export default CreateTrack;
