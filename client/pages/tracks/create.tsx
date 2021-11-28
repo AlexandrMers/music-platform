@@ -1,5 +1,6 @@
 import React, { FC, memo } from "react";
-import WithNavbarContainer from "../../containers/WithNavbarContainer";
+
+import WithNavbarContainer from "containers/WithNavbarContainer";
 
 interface CreateTrackPropsInterface {}
 
