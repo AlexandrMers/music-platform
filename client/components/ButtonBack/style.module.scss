@@ -1,0 +1,9 @@
+.ButtonBack {
+  position: relative;
+
+  &__Icon {
+    margin-bottom: 25px;
+    position: absolute;
+    left: -60px;
+  }
+}

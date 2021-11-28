@@ -1,4 +1,6 @@
-export const FAKE_TRACKS = [
+import { ITrack } from "../../types/Track";
+
+export const FAKE_TRACKS: ITrack[] = [
   {
     id: "1",
     artist: "Исполнитель 1",
@@ -8,7 +10,13 @@ export const FAKE_TRACKS = [
     picture:
       "http://localhost:5000/image/51490af7-45cc-4273-bde5-7ca32e0e78ff.jpg",
     text: "Некоторые теги для песни 1",
-    comments: [],
+    comments: [
+      {
+        id: "1",
+        username: "Alexandr",
+        text: "That's a great track. Thanks",
+      },
+    ],
   },
   {
     id: "2",
