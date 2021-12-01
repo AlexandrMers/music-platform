@@ -1,10 +1,12 @@
 import React, { FC, useState } from "react";
-import { Button, Grid } from "@material-ui/core";
+import { Button, Grid, TextField } from "@material-ui/core";
 
 import StepWrapper from "components/StepWrapper";
 import StepsContentViewer from "components/StepsContainerViewer";
 
 import WithNavbarContainer from "containers/WithNavbarContainer";
+import UploadInformationForm from "../../components/UploadInformationForm";
+import FileUpload from "components/FileUpload";
 
 interface CreateTrackPropsInterface {}
 
@@ -16,6 +18,8 @@ export enum STEPS {
 
 const CreateTrack: FC<CreateTrackPropsInterface> = ({}) => {
   const [activeStep, setActiveStep] = useState(0);
+  const [picture, setPicture] = useState(null);
+  const [audio, setAudio] = useState(null);
 
   const handleBack = () => {
     setActiveStep((step) => --step);
@@ -35,15 +39,23 @@ const CreateTrack: FC<CreateTrackPropsInterface> = ({}) => {
           config={[
             {
               condition: activeStep === STEPS.FIRST_STEP,
-              render: () => <div>Step 1</div>,
+              render: () => <UploadInformationForm />,
             },
             {
               condition: activeStep === STEPS.SECOND_STEP,
-              render: () => <div>Step 2</div>,
+              render: () => (
+                <FileUpload setFile={setPicture} accept="image/*">
+                  <Button>Загрузить изображение</Button>
+                </FileUpload>
+              ),
             },
             {
               condition: activeStep === STEPS.THIRD_STEP,
-              render: () => <div>Step 3</div>,
+              render: () => (
+                <FileUpload setFile={setAudio} accept="audio/*">
+                  <Button>Загрузить аудио</Button>
+                </FileUpload>
+              ),
             },
           ]}
         />

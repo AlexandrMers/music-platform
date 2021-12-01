@@ -1,0 +1,7 @@
+.UploadInformationForm {
+  &__Input {
+    &:not(:last-child) {
+      margin-bottom: 25px;
+    }
+  }
+}
