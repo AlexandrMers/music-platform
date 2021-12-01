@@ -1,7 +1,8 @@
 import { FC } from "react";
 import { Container } from "@material-ui/core";
 
-import Navbar, { NavbarItemInterface } from "../../components/Navbar";
+import Navbar, { NavbarItemInterface } from "components/Navbar";
+import Player from "components/Player";
 
 import styles from "./styles.module.scss";
 
@@ -13,6 +14,7 @@ const WithNavbarContainer: FC<{
     <>
       <Navbar items={items} headerTitle={title} />
       <Container className={styles.Container}>{children}</Container>
+      <Player />
     </>
   );
 };

@@ -1,0 +1,27 @@
+.Player {
+  height: 60px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  padding: 25px;
+  background-color: rgba(#1b76d0, .3);
+
+  &__Information {
+    margin-left: 20px;
+  }
+
+  &__ProgressTrack {
+    display: flex;
+    align-items: center;
+
+    &_ml50 {
+      margin-left: 50px;
+    }
+
+    &_mlAuto {
+      margin-left: auto;
+    }
+  }
+}
