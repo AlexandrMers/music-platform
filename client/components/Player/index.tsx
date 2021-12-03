@@ -8,21 +8,32 @@ import TrackProgress from "components/TrackProgress";
 
 import styles from "./style.module.scss";
 
-import { FAKE_TRACKS } from "pages/tracks/fakeData";
+import { ITrack } from "types/Track";
 
-interface PlayerPropsInterface {}
+interface PlayerPropsInterface {
+  active?: boolean;
+  track?: ITrack;
 
-const Player: FC<PlayerPropsInterface> = () => {
-  const active = false;
-  const track = FAKE_TRACKS[0];
+  onChangeProgress: () => void;
+  onChangeVolume: () => void;
+  onPlay: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+}
 
+const Player: FC<PlayerPropsInterface> = ({
+  track = null,
+  active = false,
+
+  onPlay,
+  onChangeProgress,
+  onChangeVolume,
+}) => {
   return (
     <div className={styles.Player}>
-      <IconButton>
+      <IconButton onClick={onPlay}>
         {!active ? <PlayArrow color={"action"} /> : <Pause color={"action"} />}
       </IconButton>
 
-      <Grid className={styles.Player__Information} direction="column">
+      <Grid className={styles.Player__Information}>
         <Typography noWrap className={styles.TrackItem__Name} variant="h6">
           {track.name}
         </Typography>
@@ -43,7 +54,11 @@ const Player: FC<PlayerPropsInterface> = () => {
           styles.Player__ProgressTrack_ml50
         )}
       >
-        <TrackProgress left={0} right={100} onChange={() => {}} />
+        <TrackProgress
+          left={0}
+          right={100}
+          onChange={() => onChangeProgress()}
+        />
       </Box>
 
       <Box
@@ -54,7 +69,7 @@ const Player: FC<PlayerPropsInterface> = () => {
       >
         <VolumeUp />
 
-        <TrackProgress left={0} right={100} onChange={() => {}} />
+        <TrackProgress left={0} right={100} onChange={() => onChangeVolume()} />
       </Box>
     </div>
   );

@@ -15,10 +15,15 @@
     "@material-ui/icons": "^4.11.2",
     "@mui/icons-material": "^5.2.0",
     "@mui/material": "^5.2.1",
+    "@types/react-redux": "^7.1.20",
     "classnames": "^2.3.1",
     "next": "12.0.4",
+    "next-redux-wrapper": "^7.0.5",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-redux": "^7.2.6",
+    "redux": "^4.1.2",
+    "redux-thunk": "^2.4.1"
   },
   "devDependencies": {
     "@types/material-ui": "^0.21.12",
@@ -26,8 +31,8 @@
     "@types/react": "^17.0.37",
     "eslint": "7",
     "eslint-config-next": "12.0.4",
-    "prettier": "^2.4.1",
     "node-sass": "^6.0.1",
+    "prettier": "^2.4.1",
     "sass": "^1.43.5",
     "typescript": "^4.5.2"
   }
