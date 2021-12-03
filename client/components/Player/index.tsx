@@ -35,7 +35,7 @@ const Player: FC<PlayerPropsInterface> = ({
 
       <Grid className={styles.Player__Information}>
         <Typography noWrap className={styles.TrackItem__Name} variant="h6">
-          {track.name}
+          {track?.name}
         </Typography>
 
         <Typography
@@ -44,7 +44,7 @@ const Player: FC<PlayerPropsInterface> = ({
           component="p"
           color={"black"}
         >
-          {track.artist}
+          {track?.artist}
         </Typography>
       </Grid>
 

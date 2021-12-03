@@ -19,7 +19,7 @@ const TrackItem: FC<TrackItemPropsInterface> = ({
   active = false,
   onClickTitle,
 }) => {
-  const router = useRouter();
+  // const router = useRouter();
 
   const handleClick = () => {
     onClickTitle(track.id);
@@ -36,7 +36,7 @@ const TrackItem: FC<TrackItemPropsInterface> = ({
           src={track.picture}
           alt={track.name}
         />
-        <Grid className={styles.TrackItem__Information} direction="column">
+        <Grid className={styles.TrackItem__Information}>
           <Typography
             noWrap
             className={styles.TrackItem__Name}
