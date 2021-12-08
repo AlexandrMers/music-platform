@@ -4,7 +4,8 @@ export const FAKE_TRACKS: ITrack[] = [
   {
     id: "1",
     artist: "Исполнитель 1",
-    audio: "http://localhost:5000/audio/12345.mp3",
+    audio:
+      "http://localhost:5000/audio/39e43225-129e-4934-8203-d6edd2407bad.mp3",
     name: "Трек с названием 1",
     listens: 3,
     picture:

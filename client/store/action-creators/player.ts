@@ -26,5 +26,5 @@ export const setVolume = (payload: number): PlayerActionType => ({
 
 export const setCurrentTime = (payload: number): PlayerActionType => ({
   type: PlayerActionTypes.SET_CURRENT_TIME,
-  payload: 0,
+  payload,
 });

@@ -9,7 +9,7 @@ const initialState: PlayerStateType = {
   currentTime: 0,
   duration: 0,
   pause: true,
-  volume: 0,
+  volume: 70,
 };
 
 export const playerReducer = (

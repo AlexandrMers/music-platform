@@ -6,22 +6,28 @@ import cn from "classnames";
 
 import TrackProgress from "components/TrackProgress";
 
-import styles from "./style.module.scss";
-
 import { ITrack } from "types/Track";
+
+import styles from "./style.module.scss";
 
 interface PlayerPropsInterface {
   active?: boolean;
   track?: ITrack;
+  volume?: number;
+  currentTime?: number;
+  duration?: number;
 
-  onChangeProgress: () => void;
-  onChangeVolume: () => void;
+  onChangeProgress: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeVolume: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onPlay: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 const Player: FC<PlayerPropsInterface> = ({
-  track = null,
   active = false,
+  currentTime = 0,
+  duration = 0,
+  track = null,
+  volume = 80,
 
   onPlay,
   onChangeProgress,
@@ -55,9 +61,9 @@ const Player: FC<PlayerPropsInterface> = ({
         )}
       >
         <TrackProgress
-          left={0}
-          right={100}
-          onChange={() => onChangeProgress()}
+          left={currentTime}
+          right={duration}
+          onChange={onChangeProgress}
         />
       </Box>
 
@@ -69,7 +75,7 @@ const Player: FC<PlayerPropsInterface> = ({
       >
         <VolumeUp />
 
-        <TrackProgress left={0} right={100} onChange={() => onChangeVolume()} />
+        <TrackProgress left={volume} right={100} onChange={onChangeVolume} />
       </Box>
     </div>
   );
