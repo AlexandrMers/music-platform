@@ -8,6 +8,8 @@ import TrackProgress from "components/TrackProgress";
 
 import { ITrack } from "types/Track";
 
+import { formatTime } from "./helpers";
+
 import styles from "./style.module.scss";
 
 interface PlayerPropsInterface {
@@ -63,6 +65,7 @@ const Player: FC<PlayerPropsInterface> = ({
         <TrackProgress
           left={currentTime}
           right={duration}
+          formatView={formatTime}
           onChange={onChangeProgress}
         />
       </Box>

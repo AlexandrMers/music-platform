@@ -4,11 +4,13 @@ interface TrackProgressPropsInterface {
   left: number;
   right: number;
   onChange: (e) => void;
+  formatView?: (value: number) => string;
 }
 
 const TrackProgress: FC<TrackProgressPropsInterface> = ({
   left,
   right,
+  formatView,
   onChange,
 }) => {
   return (
@@ -21,7 +23,8 @@ const TrackProgress: FC<TrackProgressPropsInterface> = ({
         onChange={onChange}
       />
       <div>
-        {left} / {right}
+        {formatView ? formatView(left) : left} /{" "}
+        {formatView ? formatView(right) : right}
       </div>
     </div>
   );
