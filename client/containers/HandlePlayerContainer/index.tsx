@@ -55,13 +55,17 @@ const HandlePlayerContainer: FC<HandlePlayerContainerPropsInterface> = ({}) => {
 
   const onChangeVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
     const valueToNumber = Number(e.target.value);
-    audio.volume = valueToNumber;
+    if (audio) {
+      audio.volume = formatVolumeWithDecimals(valueToNumber);
+    }
     setVolume(valueToNumber);
   };
 
   const onChangeCurrentTime = (e: React.ChangeEvent<HTMLInputElement>) => {
     const valueToNumber = Number(e.target.value);
-    audio.currentTime = valueToNumber;
+    if (audio) {
+      audio.currentTime = valueToNumber;
+    }
     setCurrentTime(valueToNumber);
   };
 
