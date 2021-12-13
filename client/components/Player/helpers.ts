@@ -1,5 +1,5 @@
 function viewSeconds(seconds: number) {
-  return seconds < 10 ? "0" + seconds : seconds;
+  return seconds < 10 ? `0${seconds}` : seconds;
 }
 
 function calculateSecondsAfterRoundMinutes(seconds: number) {
