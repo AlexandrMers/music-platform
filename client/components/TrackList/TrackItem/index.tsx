@@ -7,29 +7,43 @@ import { Delete, Pause, PlayArrow } from "@mui/icons-material";
 import { ITrack } from "types/Track";
 
 import styles from "./style.module.scss";
+import { useTypedSelector } from "../../../hooks/useTypedSelector";
 
 interface TrackItemPropsInterface {
   active?: boolean;
   track: ITrack;
   onClickTitle: (trackId: string) => void;
+  onClickPlay: (track: ITrack) => void;
 }
 
 const TrackItem: FC<TrackItemPropsInterface> = ({
   track,
-  active = false,
   onClickTitle,
+  onClickPlay,
 }) => {
-  // const router = useRouter();
+  const { active: activeTrack, pause } = useTypedSelector(
+    (state) => state.player
+  );
 
   const handleClick = () => {
     onClickTitle(track.id);
   };
 
+  const handleClickPlay = () => {
+    onClickPlay(track);
+  };
+
+  const isActive = activeTrack?.id === track.id;
+  const isActiveAndPlay = isActive && !pause;
+
   return (
     <Card className={styles.TrackItem}>
       <Grid container alignItems="center">
-        <IconButton className={styles.TrackItem__Button}>
-          {active ? <Pause /> : <PlayArrow />}
+        <IconButton
+          className={styles.TrackItem__Button}
+          onClick={handleClickPlay}
+        >
+          {isActiveAndPlay ? <Pause /> : <PlayArrow />}
         </IconButton>
         <img
           className={styles.TrackItem__Picture}
@@ -55,7 +69,7 @@ const TrackItem: FC<TrackItemPropsInterface> = ({
             {track.artist}
           </Typography>
 
-          {active && <div>02:42 / 03:22</div>}
+          {isActive && <div>02:42 / 03:22</div>}
         </Grid>
         <IconButton className={styles.TrackItem__DeleteButton}>
           <Delete />

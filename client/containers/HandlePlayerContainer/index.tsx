@@ -5,8 +5,6 @@ import Player from "components/Player";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { useActions } from "hooks/useActions";
 
-import { FAKE_TRACKS } from "../../pages/tracks/fakeData";
-
 interface HandlePlayerContainerPropsInterface {}
 
 let audio: HTMLAudioElement;
@@ -20,19 +18,40 @@ function roundNumber(value: number) {
 }
 
 const HandlePlayerContainer: FC<HandlePlayerContainerPropsInterface> = ({}) => {
-  const { pause, volume, currentTime, duration } = useTypedSelector(
-    (state) => state.player
-  );
-
-  const activeTrack = FAKE_TRACKS[0];
+  const {
+    pause,
+    volume,
+    currentTime,
+    duration,
+    active: activeTrack,
+  } = useTypedSelector((state) => state.player);
 
   const { playTrack, pauseTrack, setVolume, setCurrentTime, setDuration } =
     useActions();
 
   // Initialize audio
   useEffect(() => {
-    if (!audio && activeTrack) {
+    if (!audio) {
       audio = new Audio();
+    } else {
+      setAudio();
+      handlePlay();
+    }
+  }, [activeTrack]);
+
+  // Handle player from storage
+  useEffect(() => {
+    if (pause) {
+      pauseTrack();
+      audio.pause();
+    } else {
+      playTrack();
+      audio.play();
+    }
+  }, [pause, audio]);
+
+  const setAudio = () => {
+    if (activeTrack) {
       audio.src = activeTrack.audio;
       audio.onloadedmetadata = () => {
         setDuration(roundNumber(audio.duration));
@@ -41,7 +60,7 @@ const HandlePlayerContainer: FC<HandlePlayerContainerPropsInterface> = ({}) => {
         setCurrentTime(roundNumber(audio.currentTime));
       };
     }
-  }, [activeTrack]);
+  };
 
   const handlePlay = () => {
     if (pause) {
@@ -70,16 +89,18 @@ const HandlePlayerContainer: FC<HandlePlayerContainerPropsInterface> = ({}) => {
   };
 
   return (
-    <Player
-      onPlay={handlePlay}
-      track={activeTrack}
-      active={!pause}
-      volume={volume}
-      currentTime={currentTime}
-      duration={duration}
-      onChangeProgress={onChangeCurrentTime}
-      onChangeVolume={onChangeVolume}
-    />
+    activeTrack && (
+      <Player
+        onPlay={handlePlay}
+        track={activeTrack}
+        active={!pause}
+        volume={volume}
+        currentTime={currentTime}
+        duration={duration}
+        onChangeProgress={onChangeCurrentTime}
+        onChangeVolume={onChangeVolume}
+      />
+    )
   );
 };
 

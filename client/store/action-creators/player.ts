@@ -14,9 +14,9 @@ export const setDuration = (payload: number): PlayerActionType => ({
   payload,
 });
 
-export const setActive = (payload: ITrack): PlayerActionType => ({
+export const setActive = (track: ITrack): PlayerActionType => ({
   type: PlayerActionTypes.SET_ACTIVE,
-  payload,
+  payload: track,
 });
 
 export const setVolume = (payload: number): PlayerActionType => ({
