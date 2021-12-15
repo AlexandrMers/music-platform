@@ -5,7 +5,7 @@ import { Box, Button, Card, Grid } from "@material-ui/core";
 
 import WithNavbarContainer from "containers/WithNavbarContainer";
 
-import TrackList from "../../components/TrackList";
+import TrackList from "components/TrackList";
 
 import { ROUTE_TYPES } from "configs/routePaths";
 
@@ -13,19 +13,17 @@ import styles from "./index.module.scss";
 
 import { ITrack } from "types/Track";
 
+import { useActions } from "hooks/useActions";
+import { useTypedSelector } from "hooks/useTypedSelector";
+
 import { FAKE_TRACKS } from "./fakeData";
-import { useActions } from "../../hooks/useActions";
-import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 const Tracks = () => {
   const router = useRouter();
 
-  const {
-    active: activeTrack,
-    pause,
-    currentTime,
-    duration,
-  } = useTypedSelector((state) => state.player);
+  const { active: activeTrack, pause } = useTypedSelector(
+    (state) => state.player
+  );
   const { playTrack, pauseTrack, setActive } = useActions();
 
   const tracks: ITrack[] = FAKE_TRACKS;

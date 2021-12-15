@@ -1,13 +1,15 @@
 import React, { FC } from "react";
-import { useRouter } from "next/router";
 
 import { Card, Grid, IconButton, Typography } from "@material-ui/core";
 import { Delete, Pause, PlayArrow } from "@mui/icons-material";
 
 import { ITrack } from "types/Track";
 
+import { useTypedSelector } from "hooks/useTypedSelector";
+
+import { formatTime } from "../../Player/helpers";
+
 import styles from "./style.module.scss";
-import { useTypedSelector } from "../../../hooks/useTypedSelector";
 
 interface TrackItemPropsInterface {
   active?: boolean;
@@ -21,9 +23,12 @@ const TrackItem: FC<TrackItemPropsInterface> = ({
   onClickTitle,
   onClickPlay,
 }) => {
-  const { active: activeTrack, pause } = useTypedSelector(
-    (state) => state.player
-  );
+  const {
+    active: activeTrack,
+    pause,
+    currentTime,
+    duration,
+  } = useTypedSelector((state) => state.player);
 
   const handleClick = () => {
     onClickTitle(track.id);
@@ -69,7 +74,11 @@ const TrackItem: FC<TrackItemPropsInterface> = ({
             {track.artist}
           </Typography>
 
-          {isActive && <div>02:42 / 03:22</div>}
+          {isActive && (
+            <div>
+              {formatTime(currentTime)} / {formatTime(duration)}
+            </div>
+          )}
         </Grid>
         <IconButton className={styles.TrackItem__DeleteButton}>
           <Delete />
