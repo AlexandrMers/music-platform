@@ -1,5 +1,6 @@
 import { applyMiddleware, createStore, Store } from "redux";
-import { Context, createWrapper, MakeStore } from "next-redux-wrapper";
+import { createWrapper, MakeStore } from "next-redux-wrapper";
+import thunk from "redux-thunk";
 
 import { reducer, RootReducerType } from "./reducers";
 
@@ -12,7 +13,7 @@ const bindMiddleware = (middleware) => {
 };
 
 const makeStore: MakeStore<Store<RootReducerType>> = () =>
-  createStore(reducer, bindMiddleware([]));
+  createStore(reducer, bindMiddleware([thunk]));
 
 // export an assembled wrapper
 export const wrapper = createWrapper<Store<RootReducerType>>(makeStore, {

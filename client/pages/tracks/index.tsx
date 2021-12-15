@@ -16,17 +16,17 @@ import { ITrack } from "types/Track";
 import { useActions } from "hooks/useActions";
 import { useTypedSelector } from "hooks/useTypedSelector";
 
-import { FAKE_TRACKS } from "./fakeData";
-
 const Tracks = () => {
   const router = useRouter();
 
-  const { active: activeTrack, pause } = useTypedSelector(
-    (state) => state.player
-  );
+  const {
+    player: { active: activeTrack, pause },
+    tracks: { tracks, error },
+  } = useTypedSelector((state) => ({
+    player: state.player,
+    tracks: state.tracks,
+  }));
   const { playTrack, pauseTrack, setActive } = useActions();
-
-  const tracks: ITrack[] = FAKE_TRACKS;
 
   const handleClick = () => {
     router.push(ROUTE_TYPES.TRACKS_CREATE);
@@ -47,6 +47,14 @@ const Tracks = () => {
     }
     setActive(track);
   };
+
+  if (error) {
+    return (
+      <WithNavbarContainer>
+        <h1>{error}</h1>
+      </WithNavbarContainer>
+    );
+  }
 
   return (
     <WithNavbarContainer>
