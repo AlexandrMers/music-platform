@@ -114,8 +114,9 @@ function Navbar({
         </DrawerHeader>
         <Divider />
         <List>
-          {items.map(({ name, href }, index) => (
-            <ListItem button key={href} onClick={onHandleClick(href)}>
+          {items.map(({ name, href }) => (
+              // @ts-ignore
+              <ListItem button key={href} onClick={onHandleClick(href)}>
               <ListItemText primary={name} />
             </ListItem>
           ))}

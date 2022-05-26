@@ -11,7 +11,7 @@ import ButtonBack from "components/ButtonBack";
 
 import { ROUTE_TYPES } from "configs/routePaths";
 
-import { FAKE_TRACKS } from "./fakeData";
+import { FAKE_TRACKS } from "../../libs/fakeData";
 
 interface TrackPropsInterface {}
 

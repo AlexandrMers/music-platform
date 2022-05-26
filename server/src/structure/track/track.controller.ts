@@ -71,7 +71,9 @@ export class TrackController {
     return this.trackService.addComment(dto);
   }
 
-  @Post('/listen/:id')
+  // TODO - добавить эндпоинт для получения всех комментариев по айди трека...
+
+  @Post(':id/listen')
   listen(@Param('id') id: ObjectId) {
     return this.trackService.listen(id);
   }

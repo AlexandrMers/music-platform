@@ -1,4 +1,4 @@
-import { ITrack } from "../../types/Track";
+import { ITrack } from "../types/Track";
 
 export const FAKE_TRACKS: ITrack[] = [
   {

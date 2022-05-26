@@ -63,6 +63,7 @@ export class TrackService {
     const track = await this.trackModel.findById(id);
     track.listens += 1;
     track.save();
+    return track;
   }
 
   async search(query: string): Promise<Track[]> {
