@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 
-import { Box, Button, Card, Grid } from "@material-ui/core";
+import { Box, Button, Card, Grid, CircularProgress } from "@material-ui/core";
 
 import WithNavbarContainer from "containers/WithNavbarContainer";
 
@@ -9,24 +9,29 @@ import TrackList from "components/TrackList";
 
 import { ROUTE_TYPES } from "configs/routePaths";
 
-import styles from "./index.module.scss";
-
 import { ITrack } from "types/Track";
 
 import { useActions } from "hooks/useActions";
 import { useTypedSelector } from "hooks/useTypedSelector";
+
+import styles from "./index.module.scss";
 
 const Tracks = () => {
   const router = useRouter();
 
   const {
     player: { active: activeTrack, pause },
-    tracks: { tracks, error },
+    tracks: { tracks, error, loadingTracks },
   } = useTypedSelector((state) => ({
     player: state.player,
     tracks: state.tracks,
   }));
-  const { playTrack, pauseTrack, setActive } = useActions();
+  const { playTrack, pauseTrack, setActive, fetchTracks } = useActions();
+
+  // Fetch tracks
+  useEffect(() => {
+    fetchTracks();
+  }, []);
 
   const handleClick = () => {
     router.push(ROUTE_TYPES.TRACKS_CREATE);
@@ -59,7 +64,7 @@ const Tracks = () => {
   return (
     <WithNavbarContainer>
       <Grid container justifyContent="center">
-        <Card className={styles.CreateTrack__MainCard}>
+        <Card className={styles.Tracks__MainCard}>
           <Box p={3}>
             <Grid container justifyContent="space-between" alignItems="center">
               <h1>Список треков</h1>
@@ -67,11 +72,17 @@ const Tracks = () => {
             </Grid>
           </Box>
 
-          <TrackList
-            tracks={tracks}
-            onClickTrack={handleClickTrack}
-            onClickPlay={onClickPlay}
-          />
+          {loadingTracks ? (
+            <Box className={styles.Tracks__LoaderWrapper} p={3}>
+              <CircularProgress />
+            </Box>
+          ) : (
+            <TrackList
+              tracks={tracks}
+              onClickTrack={handleClickTrack}
+              onClickPlay={onClickPlay}
+            />
+          )}
         </Card>
       </Grid>
     </WithNavbarContainer>

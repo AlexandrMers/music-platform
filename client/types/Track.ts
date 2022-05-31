@@ -12,13 +12,19 @@ export interface ITrack {
 }
 
 export interface TrackState {
+  loadingTracks: boolean;
   tracks: ITrack[];
   error: string;
 }
 
 export enum TrackActionTypes {
-  FETCH_TRACKS = "FETCH_TRACKS",
-  FETCH_TRACKS_ERROR = "FETCH_TRACKS_ERROR",
+  LOAD_TRACKS = "TRACKS/LOAD",
+  FETCH_TRACKS = "TRACKS/FETCH",
+  FETCH_TRACKS_ERROR = "TRACKS/ERROR",
+}
+
+interface LoadTracksAction {
+  type: TrackActionTypes.LOAD_TRACKS;
 }
 
 interface FetchTracksAction {
@@ -31,4 +37,7 @@ interface FetchTracksErrorAction {
   payload: string;
 }
 
-export type TrackAction = FetchTracksAction | FetchTracksErrorAction;
+export type TrackAction =
+  | FetchTracksAction
+  | FetchTracksErrorAction
+  | LoadTracksAction;

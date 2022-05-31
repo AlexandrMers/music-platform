@@ -1,15 +1,26 @@
 import { Dispatch } from "react";
-import axios from "axios";
+
+import ApiCore from "apiCore";
 
 import { TrackAction, TrackActionTypes } from "types/Track";
 
-export const fetchTracks = () => {
+import { promisifyDuration } from "helpers/promiseDuration";
+
+export const fetchTracks = (count?: number, offset?: number) => {
   return async (dispatch: Dispatch<TrackAction>) => {
     try {
-      const response = await axios.get(`${process.env.API_URL}/tracks`);
+      // start loading tracks
+      dispatch({
+        type: TrackActionTypes.LOAD_TRACKS,
+      });
+
+      await promisifyDuration(3000);
+      const data = await ApiCore.fetchTracks(count, offset);
+
+      // set received tracks in store
       dispatch({
         type: TrackActionTypes.FETCH_TRACKS,
-        payload: response.data,
+        payload: data,
       });
     } catch (e) {
       dispatch({

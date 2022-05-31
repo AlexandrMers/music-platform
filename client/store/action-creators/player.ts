@@ -1,4 +1,4 @@
-import { PlayerActionType, PlayerActionTypes } from "types/player";
+import { PlayerActionType, PlayerActionTypes } from "types/Player";
 import { ITrack } from "types/Track";
 
 export const playTrack = (): PlayerActionType => ({

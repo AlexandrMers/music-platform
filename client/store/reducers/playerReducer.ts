@@ -2,7 +2,7 @@ import {
   PlayerActionType,
   PlayerActionTypes,
   PlayerStateType,
-} from "types/player";
+} from "types/Player";
 
 const initialState: PlayerStateType = {
   active: null,
